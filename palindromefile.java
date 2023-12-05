@@ -30,6 +30,6 @@ public class palindromefile {
             writer.write(s);
             writer.close();
         }
-        
+
     }
 }
