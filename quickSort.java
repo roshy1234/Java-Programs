@@ -1,64 +1,50 @@
 import java.util.*;
 
-public class Quicksort {
+public class quicksort {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the size of array:");
+        int n = sc.nextInt();
+        int a[] = new int[n];
+        System.out.print("Enter the array elements:");
+        for (int i = 0; i < n; i++) {
+            a[i] = sc.nextInt();
+        }
 
-  static int partition(int array[], int low, int high) {
-        int pivot = array[high];
-        int i = (low - 1);
+        QuickSort(a, 0, n - 1);
 
-    for (int j = low; j < high; j++) {
-      if (array[j] <= pivot) {
-
-        i++;
-
-        int temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-      }
-
+        System.out.println("Sorted Array:");
+        for (int i : a) {
+            System.out.print(i + " ");
+        }
     }
 
-    int temp = array[i + 1];
-    array[i + 1] = array[high];
-    array[high] = temp;
+    private static void QuickSort(int[] a, int lowindex, int highindex) {
+        if (lowindex >= highindex)
+            return;
 
-    return (i + 1);
-  }
+        int pivot = a[highindex];
+        int leftPointer = lowindex;
+        int rightPointer = highindex;
 
-  static void quickSort(int array[], int low, int high) {
-    if (low < high) {
+        while (leftPointer < rightPointer) {
+            while (a[leftPointer] <= pivot && leftPointer < rightPointer)
+                leftPointer++;
+            while (a[rightPointer] >= pivot && leftPointer < rightPointer)
+                rightPointer--;
 
-      int pi = partition(array, low, high);
-      
-      quickSort(array, low, pi - 1);
+            swap(a, leftPointer, rightPointer);
+        }
 
-      quickSort(array, pi + 1, high);
+        swap(a, leftPointer, highindex);
+
+        QuickSort(a, lowindex, leftPointer - 1);
+        QuickSort(a, leftPointer + 1, highindex);
     }
-  }
+
+    private static void swap(int[] a, int index1, int index2) {
+        int temp = a[index1];
+        a[index1] = a[index2];
+        a[index2] = temp;
+    }
 }
-
-public class quickSort {
-  public static void main(String args[]) {
-
-    int n;
-    Scanner sc = new Scanner(System.in);
-    System.out.print("Enter the array size:");    
-    n = sc.nextInt();
-    int data[] = new int[n];
-    System.out.print("Enter the array elements:");    
-    for(int i=0;i<n;i++) {
-        data[i] = sc.nextInt();
-    }
-    System.out.println("Unsorted Array");
-    System.out.println(Arrays.toString(data));
-
-    int size = data.length;
-
-    Quicksort.quickSort(data, 0, size - 1);
-
-    System.out.println("Sorted Array in Ascending Order ");
-    System.out.println(Arrays.toString(data));
-  }
-}
-
-
